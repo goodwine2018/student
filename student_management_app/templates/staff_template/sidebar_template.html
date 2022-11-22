@@ -92,6 +92,18 @@
               </a>
             </li>
 
+
+            <li class="nav-item">
+              {% url 'staff_feedback_pic' as staff_feedback_pic_1 %}
+              <a href="{{ staff_feedback_pic_1 }}" class="nav-link {% if request.path == staff_feedback_pic_1 %} active {% endif %}">
+                <i class="nav-icon fas fa-comments"></i>
+                <p>
+                  Feedback_new
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->

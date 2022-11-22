@@ -1,0 +1,26 @@
+diff a/student_management_app/HodViews.py b/student_management_app/HodViews.py	(rejected hunks)
+@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
+ from django.core import serializers
+ import json
+ 
+-from student_management_app.models import CustomUser, Staffs, Courses, Subjects, Students, SessionYearModel, FeedBackStudent, FeedBackStaffs, LeaveReportStudent, LeaveReportStaff, Attendance, AttendanceReport
++from student_management_app.models import CustomUser, Staffs, Courses, Subjects, Students,Students1, SessionYearModel, FeedBackStudent, FeedBackStaffs, LeaveReportStudent, LeaveReportStaff, Attendance, AttendanceReport
+ from .forms import AddStudentForm, EditStudentForm
+ 
+ 
+@@ -390,6 +453,15 @@ def manage_student(request):
+     return render(request, 'hod_template/manage_student_template.html', context)
+ 
+ 
++
++
++def manage_student1(request):
++    students1 = Students1.objects.all()
++    context = {
++        "students1": students1
++    }
++    return render(request, 'hod_template/manage_student1_template.html', context)
++
+ def edit_student(request, student_id):
+     # Adding Student ID into Session Variable
+     request.session['student_id'] = student_id

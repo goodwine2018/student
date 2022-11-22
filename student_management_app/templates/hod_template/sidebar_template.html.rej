@@ -1,0 +1,8 @@
+diff a/student_management_app/templates/hod_template/sidebar_template.html b/student_management_app/templates/hod_template/sidebar_template.html	(rejected hunks)
+@@ -198,4 +209,4 @@
+         <!-- /.sidebar-menu -->
+       </div>
+       <!-- /.sidebar -->
+-    </aside>
+\ No newline at end of file
++    </aside>

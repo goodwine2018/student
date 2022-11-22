@@ -8,7 +8,7 @@ from django.core import serializers
 import json
 
 
-from student_management_app.models import CustomUser, Staffs, Courses, Subjects, Students, SessionYearModel, Attendance, AttendanceReport, LeaveReportStaff, FeedBackStaffs, StudentResult
+from student_management_app.models import CustomUser, Staffs, Courses, Subjects, Students, SessionYearModel, Attendance, AttendanceReport, LeaveReportStaff, FeedBackStaffs, FeedBackStaffs_pic, StudentResult
 
 
 def staff_home(request):
@@ -116,6 +116,16 @@ def staff_feedback(request):
     return render(request, "staff_template/staff_feedback_template.html", context)
 
 
+def staff_feedback_pic(request):
+    staff_obj = Staffs.objects.get(admin=request.user.id)
+    feedback_data = FeedBackStaffs_pic.objects.filter(staff_id=staff_obj)
+
+    context = {
+        "feedback_data":feedback_data
+    }
+    return render(request, "staff_template/staff_feedback_pic_template.html", context)
+
+
 def staff_feedback_save(request):
     if request.method != "POST":
         messages.error(request, "Invalid Method.")
@@ -132,6 +142,29 @@ def staff_feedback_save(request):
         except:
             messages.error(request, "Failed to Send Feedback.")
             return redirect('staff_feedback')
+
+
+def staff_feedback_pic_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method.")
+        return redirect('staff_feedback_pic')
+    else:
+        feedback = request.POST.get('feedback_message')
+        #feedback_pic = request.FILES.get('feedback_pic')
+        feedback_pic = request.FILES['feedback_pic']
+        fs = FileSystemStorage()
+        pic_filename = fs.save(feedback_pic.name, feedback_pic)
+        feedback_pic_url = fs.url(pic_filename)
+        staff_obj = Staffs.objects.get(admin=request.user.id)
+
+        try:
+            add_feedback = FeedBackStaffs_pic(staff_id=staff_obj, feedback=feedback, feedback_pic=feedback_pic_url, feedback_reply="")
+            add_feedback.save()
+            messages.success(request, "Feedback Sent.")
+            return redirect('staff_feedback_pic')
+        except:
+            messages.error(request, "Failed to Send Feedback.")
+            return redirect('staff_feedback_pic')
 
 
 # WE don't need csrf_token when using Ajax
@@ -174,9 +207,7 @@ def save_attendance_data(request):
     session_year_model = SessionYearModel.objects.get(id=session_year_id)
 
     json_student = json.loads(student_ids)
-    # print(dict_student[0]['id'])
 
-    # print(student_ids)
     try:
         # First Attendance Data is Saved on Attendance Model
         attendance = Attendance(subject_id=subject_model, attendance_date=attendance_date, session_year_id=session_year_model)

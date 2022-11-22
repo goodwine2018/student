@@ -197,4 +197,6 @@ def student_view_result(request):
 
 
 
-
+def student_survey(request):
+	return redirect("https://docs.google.com/forms/d/1LCYxhEDTqk125Y0LO4wHECQRqFCVwxyuCNdE3ibZvgA/edit")
+    

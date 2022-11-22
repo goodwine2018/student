@@ -1,0 +1,15 @@
+diff a/student_management_app/urls.py b/student_management_app/urls.py	(rejected hunks)
+@@ -30,10 +30,13 @@ urlpatterns = [
+     path('edit_session_save/', HodViews.edit_session_save, name="edit_session_save"),
+     path('delete_session/<session_id>/', HodViews.delete_session, name="delete_session"),
+     path('add_student/', HodViews.add_student, name="add_student"),
++    path('add_student1/', HodViews.add_student1, name="add_student1"),
+     path('add_student_save/', HodViews.add_student_save, name="add_student_save"),
++     path('add_student_save1/', HodViews.add_student_save1, name="add_student_save1"),
+     path('edit_student/<student_id>', HodViews.edit_student, name="edit_student"),
+     path('edit_student_save/', HodViews.edit_student_save, name="edit_student_save"),
+     path('manage_student/', HodViews.manage_student, name="manage_student"),
++    path('manage_student1/', HodViews.manage_student1, name="manage_student1"),
+     path('delete_student/<student_id>/', HodViews.delete_student, name="delete_student"),
+     path('add_subject/', HodViews.add_subject, name="add_subject"),
+     path('add_subject_save/', HodViews.add_subject_save, name="add_subject_save"),

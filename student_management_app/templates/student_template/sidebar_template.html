@@ -81,6 +81,17 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              {% url 'student_survey' as student_survey %}
+              <a href="{{ student_survey }}" class="nav-link {% if request.path == student_survey %} active {% endif %}">
+                <i class="nav-icon fas fa-comments"></i>
+                <p>
+                  google survey
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->

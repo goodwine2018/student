@@ -15,7 +15,7 @@ class SessionYearModel(models.Model):
 
 # Overriding the Default Django Auth User and adding One More Field (user_type)
 class CustomUser(AbstractUser):
-    user_type_data = ((1, "HOD"), (2, "Staff"), (3, "Student"))
+    user_type_data = ((1, "HOD"), (2, "Staff"), (3, "Student"), (4, "Student1"))
     user_type = models.CharField(default=1, choices=user_type_data, max_length=10)
 
 
@@ -62,6 +62,30 @@ class Subjects(models.Model):
 
 
 class Students(models.Model):
+    id = models.AutoField(primary_key=True)
+    admin = models.OneToOneField(CustomUser, on_delete = models.CASCADE)
+    gender = models.CharField(max_length=50)
+    profile_pic = models.FileField()
+    address = models.TextField()
+    course_id = models.ForeignKey(Courses, on_delete=models.DO_NOTHING, default=1)
+    session_year_id = models.ForeignKey(SessionYearModel, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
+class Students1(models.Model):
+    id = models.AutoField(primary_key=True)
+    admin = models.OneToOneField(CustomUser, on_delete = models.CASCADE)
+    gender = models.CharField(max_length=50)
+    profile_pic = models.FileField()
+    address = models.TextField()
+    course_id = models.ForeignKey(Courses, on_delete=models.DO_NOTHING, default=1)
+    session_year_id = models.ForeignKey(SessionYearModel, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
+class Students1(models.Model):
     id = models.AutoField(primary_key=True)
     admin = models.OneToOneField(CustomUser, on_delete = models.CASCADE)
     gender = models.CharField(max_length=50)
@@ -138,6 +162,17 @@ class FeedBackStaffs(models.Model):
     objects = models.Manager()
 
 
+class FeedBackStaffs_pic(models.Model):
+    id = models.AutoField(primary_key=True)
+    staff_id = models.ForeignKey(Staffs, on_delete=models.CASCADE)
+    feedback = models.TextField()
+    feedback_pic = models.FileField()
+    feedback_reply = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
+
 
 class NotificationStudent(models.Model):
     id = models.AutoField(primary_key=True)
@@ -184,6 +219,8 @@ def create_user_profile(sender, instance, created, **kwargs):
             Staffs.objects.create(admin=instance)
         if instance.user_type == 3:
             Students.objects.create(admin=instance, course_id=Courses.objects.get(id=1), session_year_id=SessionYearModel.objects.get(id=1), address="", profile_pic="", gender="")
+        if instance.user_type == 4:
+            Students1.objects.create(admin=instance, course_id=Courses.objects.get(id=1), session_year_id=SessionYearModel.objects.get(id=1), address="", profile_pic="", gender="")
     
 
 @receiver(post_save, sender=CustomUser)
@@ -194,6 +231,8 @@ def save_user_profile(sender, instance, **kwargs):
         instance.staffs.save()
     if instance.user_type == 3:
         instance.students.save()
+    if instance.user_type == 4:
+        instance.students1.save()
     
 
 

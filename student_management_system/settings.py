@@ -125,3 +125,6 @@ AUTH_USER_MODEL = "student_management_app.CustomUser"
 
 # Registering Custom Backend "EmailBackEnd"
 AUTHENTICATION_BACKENDS = ['student_management_app.EmailBackEnd.EmailBackEnd']
+
+#add newe line
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
