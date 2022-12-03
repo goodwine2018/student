@@ -92,13 +92,34 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              {% url 'staff_good_deeds' as staff_good_deeds %}
+              <a href="{{ staff_good_deeds }}" class="nav-link {% if request.path == staff_good_deeds %} active {% endif %}">
+                <i class="nav-icon fas fa-comments"></i>
+                <p>
+                 Good deeds
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
 
             <li class="nav-item">
               {% url 'staff_feedback_pic' as staff_feedback_pic_1 %}
               <a href="{{ staff_feedback_pic_1 }}" class="nav-link {% if request.path == staff_feedback_pic_1 %} active {% endif %}">
                 <i class="nav-icon fas fa-comments"></i>
                 <p>
-                  Feedback_new
+                 Weekly recap 
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'staff_bi_weekly_report' as staff_bi_weekly_report %}
+              <a href="{{ staff_bi_weekly_report }}" class="nav-link {% if request.path == staff_bi_weekly_report %} active {% endif %}">
+                <i class="nav-icon fas fa-comments"></i>
+                <p>
+                 bi-weekly report 
                   {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
                 </p>
               </a>

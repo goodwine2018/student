@@ -125,6 +125,13 @@ def staff_feedback_pic(request):
     }
     return render(request, "staff_template/staff_feedback_pic_template.html", context)
 
+def staff_bi_weekly_report(request):
+	
+	return redirect('https://www.google.com')
+
+def staff_good_deeds(request):
+	
+	return redirect('https://www.google.com')
 
 def staff_feedback_save(request):
     if request.method != "POST":
